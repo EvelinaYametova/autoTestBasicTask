@@ -1,0 +1,36 @@
+Тест-кейс "Оформить доставку":
+Class ArrangePage {
+    Procedure arrangeDelivery(countryFrom, cityFrom, countryTo, cityTo) {
+        // ... arrange delivery here
+    }
+    
+    Procedure arrangeDeliveryError(countryFrom, cityFrom, countryTo, cityTo) {
+        //  ... failed arrange here, maybe because parameters are wrong
+    }
+    
+    Procedure getErrorMessage() {
+        // So we can verify that the correct error is shown
+    }
+}
+
+Тест-кейс "Ознакомиться с прейскурантом цен":
+Class PricelistPage {
+    Procedure openPricelist() {
+        // ... opens pricelist here
+    }
+}
+
+Тест-кейс "Отследить груз/документ":
+Class TrackingPage {
+    Procedure trackShipment(shippingNumber) {
+        // ... tracks shipment here
+    }
+    
+    Procedure trackShipmentError(shippingNumber) {
+        //  ... failed tracking here, maybe because shippingNumber is wrong
+    }
+    
+    Procedure getErrorMessage() {
+        // So we can verify that the correct error is shown
+    }
+}
