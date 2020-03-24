@@ -1,36 +1,140 @@
-Тест-кейс "Оформить доставку":
-Class ArrangePage {
-    Procedure arrangeDelivery(countryFrom, cityFrom, countryTo, cityTo) {
-        // ... arrange delivery here
-    }
-    
-    Procedure arrangeDeliveryError(countryFrom, cityFrom, countryTo, cityTo) {
-        //  ... failed arrange here, maybe because parameters are wrong
-    }
-    
-    Procedure getErrorMessage() {
-        // So we can verify that the correct error is shown
+Class PAGE_OBJECT {
+    WebDriver Driver;
+
+    PAGE_OBJECT(driver){
+        Driver = driver;
+        initElements(Driver, this);
     }
 }
 
-Тест-кейс "Ознакомиться с прейскурантом цен":
-Class PricelistPage {
-    Procedure openPricelist() {
-        // ... opens pricelist here
+Class MAIN_PAGE extends PAGE_OBJECT {
+    HEADER_SECTION Header;
+    FOOTER_SECTION Footer;
+    WebElement DeliveryDHLExpLink;
+
+    MAIN_PAGE(driver){
+	super(driver);
+    }
+
+    Procedure ToGoHomePage(){
+	 DeliveryDHLExpLink.Press();	
     }
 }
 
-Тест-кейс "Отследить груз/документ":
-Class TrackingPage {
-    Procedure trackShipment(shippingNumber) {
-        // ... tracks shipment here
+Class LOCATION_FORM{
+    WebElement CountryField;
+    WebElement CityField;
+    WebElement PostcodeField;
+
+    LOCATION_FORM(countryField, cityField, postcodeField){
+	CountryField = countryField;
+	CityField = cityField;
+	PostcodeField = postcodeField;
     }
     
-    Procedure trackShipmentError(shippingNumber) {
-        //  ... failed tracking here, maybe because shippingNumber is wrong
+    Procedure InputData(country, city, postcode){
+	CountryField.Input(country);
+	CityField.Input(city);
+	PostcodeField.Input(postcode);
     }
-    
-    Procedure getErrorMessage() {
-        // So we can verify that the correct error is shown
+}
+
+Class MENU_SECTION{
+    List<WebElement> MenuItemLinks;
+
+    MENU_SECTION(menuItemLinks){
+        MenuItemLinks = menuItemLinks;
+    }
+
+    Procedure SelectMenuItem(){
+	//select menu item here...
+    }
+}
+
+Class HEADER_SECTION{
+    MENU_SECTION HeadMenu;
+    WebElement CallCourierButton;
+
+    HEADER_SECTION(headMenu, callCourierButton){
+        HeadMenu = headMenu;
+	CallCourierButton = callCourierButton;
+    }
+
+    Procedure SelectMenuItem(){
+	//select menu item here...
+    }
+
+    Procedure ToCallCourier(){
+	CallCourierButton.Press()
+    }
+}
+
+Class FOOTER_SECTION{
+    MENU_SECTION FootMenu;
+    WebElement EmailField;
+    WebElement SubscribeButton;
+
+    FOOTER_SECTION(footMenu, emailField, subscribeButton){
+        FootMenu = footMenu;
+	EmailField = callCourierButton;
+	SubscribeButton = subscribeButton;
+    }
+
+    Procedure SelectMenuItem(){
+	//select menu item here...
+    }
+
+    Procedure ToSubscribe(){
+	EmailField.Input(email);
+	SubscribeButton.Press();
+    }
+}
+
+Class ARRANGE_PAGE extends MAIN_PAGE{
+    WebElement RateLink;
+    LOCATION_FORM DeliveryFrom;
+    LOCATION_FORM DeliveryTo;
+    WebElement FinalArrangeForm;
+
+    ARRANGE_PAGE(driver){
+	super(driver);
+}
+    Procedure ArrangeDelivery() {
+        DeliveryFrom.InputData(country, city, postcode);
+	DeliveryTo.InputData(country, city, postcode);
+	//Continue input data...
+    }
+}
+
+Class PRICELIST_PAGE extends MAIN_PAGE{
+    WebElement Rate2019Link;
+    WebElement Rate2020Link;
+    MENU_SECTION SideMenu;
+    WebElement PricelistPdf;
+
+    PRICELIST_PAGE(driver){
+	super(driver);
+    }
+
+    Procedure SelectMenuItem(){
+	//select menu item here...
+    }
+    Procedure OpenPricelist() {
+        Rate2020Link.Press();
+    }
+}
+
+Class TRACKING_PAGE extends MAIN_PAGE{
+    WebElement IdField;
+    WebElement SearchButton;
+    WebElement TrackingForm;
+
+    TRACKING_PAGE(driver){
+	super(driver);
+    }
+
+    Procedure TrackingDelivery() {
+        IdField.Input(id);
+	SearchButton.Press();
     }
 }
