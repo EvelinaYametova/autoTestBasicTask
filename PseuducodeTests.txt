@@ -1,0 +1,23 @@
+@Test
+Procedure ArrangedDel(){//Оформить доставку
+    Driver.get("https://express.dhl.ru/calculator/");
+    ARRANGE_PAGE arrangePage = new ARRANGE_PAGE(Driver);
+    arrangePage.ArrangeDelivery();
+    Assert.True(arrangePage.FinalArrangeForm.IsDisplayed());
+}
+
+@Test
+Procedure OpenedPrice(){//Ознакомиться с прейскурантом цен
+    Driver.get("https://express.dhl.ru/tarify/");
+    PRICELIST_PAGE pricelistPage = new PRICELIST_PAGE(Driver);
+    pricelistPage.OpenPricelist();
+    Assert.True(pricelistPage.PricelistPdf.IsDisplayed());
+}
+
+@Test
+Procedure Tracked(){//Отследить груз/документ
+    Driver.get("https://express.dhl.ru/otslezhivanie/");
+    TRACKING_PAGE trackingPage = new TRACKING_PAGE(Driver);
+    trackingPage.TrackingDelivery();
+    Assert.True(trackingDelivery.TrackingForm.IsDisplayed());
+}
